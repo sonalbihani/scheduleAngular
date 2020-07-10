@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4 text-center">
+            <h1>Days</h1>
+            <br>
+            <button class="btn btn-primary" (click)="addDay()">Add Day</button>
+            <br>
+            <hr>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let day of day_data"><a href="#" (click)="setDay(day.id)">Day
+                        {{day.id}}</a></li>
+            </ul>
+
+        </div>
+        <div class="col-4 text-center">
+            <h1>Topics</h1>
+            <br>
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Add Topic</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="topicForm">
+                        <div class="form-group">
+                            <label for="topic">Topic Name</label>
+                            <div class="input-group">
+                                <input id="topic" formControlName="topic" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </ng-template>
+            <button #btn class="btn btn-primary" (click)="open(content)" [disabled]="!current_day? 'true': null">Add
+                Topic</button>
+            <br>
+            <hr>
+            <ul class="list-group" id="topics">
+            </ul>
+        </div>
+        <div class="col-4 text-center" id="details" *ngIf= "current_topic?true: false" (submit)="submitDetails()">
+            <h1>Topic Details</h1>
+            <br><br><br>
+            <form [formGroup]="detailForm">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Details of Topic {{current_topic}}:</label>
+                    <textarea class="form-control" value = "getDetails()" formControlName="detail" id="detail" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
